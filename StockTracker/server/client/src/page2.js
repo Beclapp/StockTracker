@@ -9,15 +9,14 @@ export default class page2 extends React.Component {
 	      display: false
 	    };
 	  }
-	getData = () => {
-		console.log("here");
-	    fetch("/api")
+	getData = (id) => {
+	    fetch("/api/stocks/" + id)
 	      .then(res => res.text())
 	      .then(
 	        (result) => {
-	          data = JSON.parse(result).message;
+	          data = JSON.parse(JSON.stringify(result));
 	          //result = JSON.parse(result);
-	          //console.log(result.message)
+	          console.log(data);
 	          this.setState({display: true})
 	        }
 	      )
@@ -26,7 +25,9 @@ export default class page2 extends React.Component {
     return (
       <div>
         <h1>{data}</h1>
-        <button onClick={this.getData}>get data</button>
+        <button onClick={() => this.getData(0)}>get data</button>
+        <button onClick={() =>this.getData(1)}>get second</button>
+        <button onClick={()=>this.getData(2)}>get third</button>
       </div>
     );
   }
