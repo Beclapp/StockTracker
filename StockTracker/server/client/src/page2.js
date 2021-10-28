@@ -21,6 +21,17 @@ export default class page2 extends React.Component {
 	        }
 	      )
 	  }
+	sendData = (id) => {
+		fetch("/api/stocks", {
+			method: 'POST',
+			body: JSON.stringify({ content: "stockfour" }),
+			headers: {"Content-Type": "application/json"}
+		}).then(res => res.json())
+		.then(json => {
+			console.log(json);
+			this.getData(3);
+		});
+	}
   render() {
     return (
       <div>
@@ -28,6 +39,7 @@ export default class page2 extends React.Component {
         <button onClick={() => this.getData(0)}>get data</button>
         <button onClick={() =>this.getData(1)}>get second</button>
         <button onClick={()=>this.getData(2)}>get third</button>
+        <button onClick={() => this.sendData(4)}>create four</button>
       </div>
     );
   }

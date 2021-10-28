@@ -1,8 +1,13 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+var jsonParser = bodyParser.json();
+
+
 
 let stocks = [
               {id: 0, name: "stockone"},
@@ -10,6 +15,10 @@ let stocks = [
               {id: 2, name: "stockthree"},
               ];
 
+const generateID = () => {
+	const maxId = stocks.length > 0 ? Math.max(...stocks.map(s => s.id)) : 0;
+	return maxId + 1;
+}
 app.get("/api", (req, res) => {
 	res.json({ message: "Hello from server!" });
 });
@@ -25,8 +34,17 @@ app.get('/api/stocks/:id', (req, res) => {
 	res.json(stock);
 });
 
-
-
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+
+app.use(jsonParser);
+app.post('/api/stocks', (req, res) => {
+	const body = req.body;
+	const item = {
+			id: generateID(),
+			name: body.content
+	}
+	stocks = stocks.concat(item)
+	res.json(item)
+})
