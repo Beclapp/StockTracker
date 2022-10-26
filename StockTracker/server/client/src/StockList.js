@@ -3,7 +3,7 @@ import StockItem from "./StockItem";
 
 const finnhub = require("finnhub");
 const api_key = finnhub.ApiClient.instance.authentications["api_key"];
-//api_key.apiKey = "<Add API key here>";
+api_key.apiKey = "<Add API key here>";
 const finnhubClient = new finnhub.DefaultApi();
 
 //Boolean on whether the current stock is displayed, enables portfolio info,
